@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منهج الحوسبة الكمية — QPrep → QBronze → QSilver</title>
+<title> الحوسبة الكمية </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -334,7 +334,7 @@ footer{padding:50px 0 30px;border-top:1px solid var(--border-soft)}
 </nav>
 
 <main>
-  
+
 <section class="hero" id="home">
   <div class="container hero-grid">
 
@@ -2515,572 +2515,2061 @@ for message in ["00", "01", "10", "11"]:
   </div>
 </section>
 
-
 <!-- =========================================================
-     STAGE 5 — QSILVER — ملخص الخوارزميات الكمومية
-     ملاحظة: هذا القسم ملخص للمراجعة وليس بديلاً عن المادة الأصلية.
-     (مراجعة الكود: هذا القسم كان يستخدم كلاسات .stage-section /
-     .stage-header / .stage-badge الخاصة به، وقد تحققنا أنها كانت
-     مطابقة تمامًا لكلاسات .section / .section-head / .eyebrow.amber
-     الموجودة أصلاً في الصفحة، لذلك تم توحيدها لاستخدام نفس الكلاسات
-     المشتركة دون أي تغيير في الشكل النهائي.)
+     QSILVER — المرحلة الفضية
+     00 → 15
+     يعتمد على CSS الموجود مسبقًا في الموقع
 ========================================================= -->
 
-<section id="qsilver" class="section">
+<span id="qsilver" class="stage-anchor"></span>
 
+<section class="section">
   <div class="container">
 
+    <!-- ==================== HEADER ==================== -->
+
     <div class="section-head reveal">
-      <span class="eyebrow amber">القسم 5 · QSilver</span>
-      <h2> الخوارزميات الكمومية</h2>
+      <span class="eyebrow amber">QSILVER · المرحلة الفضية</span>
+
+      <h2>
+        من الأساس الرياضي المركب إلى
+        <span class="glow-text">خوارزمية شور</span>
+      </h2>
+
       <p>
-         مركز لأهم أفكار المرحلة الفضية: التداخل، الطور،
-        كرة بلوخ، تحويل فورييه الكمومي (QFT) — تعقيده O(n^2) بوابات في الدائرة القياسية، ويُستخدم كعنصر فرعي في QPE وشور، تقدير الطور الكمومي (QPE) — يقدّر الطور φ لمؤثر وحدوي U حيث U|ψ⟩=e^(2πiφ)|ψ⟩، ومنه يمكن استنتاج القيمة الذاتية λ=e^(2πiφ)، إيجاد المرتبة،
-        وخوارزمية شور، مع أمثلة قصيرة للمراجعة.
+        QSilver ليست إعادة لمرحلة QPrep أو QBronze.
+        نفترض أنك تعرف أساسيات Python والكيوبتات والبوابات
+        والتراكب والتشابك، ثم ننتقل إلى الأعداد المركبة،
+        الطور، كرة بلوخ، تحويل فورييه الكمي،
+        تقدير الطور، إيجاد المرتبة، وخوارزمية Shor.
       </p>
     </div>
 
-    
 
-    <div class="lesson-list reveal" id="listQsilver">
+    <!-- ==================== INTRO ==================== -->
 
-      <!-- ===============================================
-           DAY 1
-      ================================================ -->
+    <div class="stage-intro glass reveal">
 
-      <details class="lesson" data-lesson="qsilver-01" open>
+      <div class="badge">Ag</div>
+
+      <p>
+        <strong>هدف المرحلة الفضية:</strong>
+        الانتقال من فهم الدوائر الكمية الأساسية إلى فهم
+        التمثيل الرياضي المركب للحالات والعمليات،
+        ثم استخدام هذه المعرفة لبناء ودراسة
+        الخوارزميات الكمية المتقدمة.
+        <br><br>
+
+        <strong>المسار:</strong>
+        الأعداد المركبة
+        ← الحالات الكمية
+        ← المؤثرات والطور
+        ← كرة بلوخ
+        ← العمليات متعددة الكيوبت
+        ← DFT
+        ← QFT
+        ← QPE
+        ← Order Finding
+        ← Shor.
+      </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         LESSON LIST
+    ====================================================== -->
+
+    <div class="lesson-list">
+
+
+
+      <!-- =================================================
+           00
+      ================================================== -->
+
+      <details class="lesson">
 
         <summary>
-          <span class="lesson-check" data-check></span>
-          <span class="lesson-index">01</span>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">00</span>
+
           <span class="lesson-title">
-            التداخل والطور: كيف تتحكم الحوسبة الكمومية في الاحتمالات؟
+            بوابة QSilver — مراجعة المتطلبات السابقة
           </span>
+
           <span class="lesson-caret">⌄</span>
+
         </summary>
 
         <div class="lesson-body">
 
-          <div class="callout">
-            <strong>هدف الملخص:</strong>
-            فهم لماذا تُعد السعة والطور والتداخل عناصر أساسية
-            في الخوارزميات الكمومية.
-          </div>
-
-          <h4>مراجعة الكيوبت</h4>
+          <h4>قبل أن تبدأ</h4>
 
           <p>
-            تمثل حالة كيوبت واحد بصورة عامة:
+            هذا الدرس ليس إعادة للمراحل السابقة.
+            الهدف فقط هو التأكد من امتلاكك للأدوات المطلوبة
+            للانتقال إلى المستوى الرياضي والخوارزمي في QSilver.
           </p>
+
+
+          <div class="callout success">
+
+            <strong>المطلوب مسبقًا:</strong>
+
+            يجب أن تكون قادرًا على استخدام المفاهيم التالية
+            دون الحاجة إلى إعادة شرحها هنا.
+
+          </div>
+
+
+          <ul>
+
+            <li>استخدام Python وJupyter Notebook.</li>
+
+            <li>المتغيرات، القوائم، الحلقات، الشروط والدوال.</li>
+
+            <li>المتجهات والمصفوفات الأساسية.</li>
+
+            <li>مفهوم الكيوبت والحالة الكمية.</li>
+
+            <li>التراكب الكمي.</li>
+
+            <li>القياس والاحتمالات.</li>
+
+            <li>البوابات X وY وZ وH.</li>
+
+            <li>البوابات المتحكم بها مثل CNOT.</li>
+
+            <li>التشابك الكمي.</li>
+
+            <li>الدوائر متعددة الكيوبت.</li>
+
+            <li>فكرة Phase Kickback.</li>
+
+          </ul>
+
+
+          <div class="callout gold">
+
+            <strong>مهم:</strong>
+
+            إذا واجهت مشكلة في أحد هذه المفاهيم،
+            ارجع إلى QPrep أو QBronze.
+            لن نعيد بناء الأساس من الصفر داخل QSilver.
+
+          </div>
+
+
+          <h4>خريطة المرحلة</h4>
+
+          <div class="flow-strip">
+
+            <span class="flow-node hi">Complex Numbers</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Quantum States</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Phase</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Bloch Sphere</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">QFT</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">QPE</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Shor</span>
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           01
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">01</span>
+
+          <span class="lesson-title">
+            الأعداد المركبة للحوسبة الكمية
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>لماذا نحتاج الأعداد المركبة؟</h4>
+
+          <p>
+            في QSilver ننتقل من التمثيل المبسط للحالة الكمية
+            إلى تمثيلها الرياضي الحقيقي.
+            السعات الكمية ليست أعدادًا حقيقية فقط،
+            بل يمكن أن تكون أعدادًا مركبة.
+          </p>
+
+
+          <h4>العدد المركب</h4>
+
+          <div class="code-box math">
+z = a + bi
+          </div>
+
+          <p>
+
+            حيث:
+
+          </p>
+
+          <ul>
+
+            <li><code>a</code> هو الجزء الحقيقي.</li>
+
+            <li><code>b</code> هو الجزء التخيلي.</li>
+
+            <li><code>i</code> هو الوحدة التخيلية.</li>
+
+          </ul>
+
+
+          <div class="code-box math">
+i² = -1
+          </div>
+
+
+          <h4>المرافق المركب</h4>
+
+          <div class="code-box math">
+z = a + bi
+
+z* = a - bi
+          </div>
+
+
+          <h4>القيمة المطلقة</h4>
+
+          <div class="code-box math">
+|z| = √(a² + b²)
+          </div>
+
+
+          <h4>الصيغة القطبية</h4>
+
+          <div class="code-box math">
+z = r e^(iθ)
+          </div>
+
+
+          <p>
+            هذه الصيغة مهمة جدًا لأن الطور الكمي
+            سيظهر لاحقًا على شكل زاوية
+            <code>θ</code>.
+          </p>
+
+
+          <div class="callout">
+
+            <strong>الفكرة الأساسية:</strong>
+
+            القيمة المطلقة تحدد حجم العدد،
+            بينما الزاوية تحدد طوره.
+
+          </div>
+
+
+          <h4>في Python</h4>
+
+          <div class="code-box">
+z = 3 + 4j
+
+print(z.real)
+print(z.imag)
+
+print(abs(z))
+
+print(z.conjugate())
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           02
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">02</span>
+
+          <span class="lesson-title">
+            الترميز الرياضي والحالات الكمية المركبة
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>من QBronze إلى QSilver</h4>
+
+          <p>
+            أنت تعرف بالفعل أن الكيوبت يمكن أن يكون
+            في تراكب بين
+            <code>|0⟩</code>
+            و
+            <code>|1⟩.
+          </p>
+
+          <p>
+            الآن ندرس هذا التراكب باستخدام السعات المركبة.
+          </p>
+
 
           <div class="code-box math">
 |ψ⟩ = α|0⟩ + β|1⟩
+          </div>
 
+
+          <p>
+            في QSilver:
+          </p>
+
+          <div class="code-box math">
+α, β ∈ ℂ
+          </div>
+
+
+          <h4>شرط التطبيع</h4>
+
+          <div class="code-box math">
 |α|² + |β|² = 1
           </div>
 
-          <p>
-            تمثل <code>|α|²</code> و<code>|β|²</code> احتمالي الحصول
-            على <code>0</code> أو <code>1</code> عند القياس.
-          </p>
-
-          <h4>التداخل الكمومي</h4>
 
           <p>
-            السعات الكمومية يمكن أن تتداخل. قد يكون التداخل
-            <strong>بنّاءً</strong> فيزيد سعة بعض النتائج،
-            أو <strong>هدّامًا</strong> فيقلل سعة نتائج أخرى.
-            لذلك لا تعني الحوسبة الكمومية مجرد وجود حالات كثيرة،
-            بل تعتمد على التحكم في السعات والطور.
+            لاحظ أن:
           </p>
 
           <div class="code-box math">
-تداخل بنّاء  → زيادة السعة
-تداخل هدّام   → تقليل السعة
+|α|² = α*α
           </div>
 
-          <h4>الطور</h4>
 
-          <p>
-            الطور الكلي لا يغير نتائج القياس:
-          </p>
+          <h4>احتمالات القياس</h4>
 
-          <div class="code-box math">
-|ψ⟩  و  e^(iφ)|ψ⟩
-          </div>
+          <div class="mini-table">
 
-          <p>
-            بينما <strong>الطور النسبي</strong> بين مكونات الحالة
-            يمكن أن يؤثر في التداخل، وبالتالي في نتائج الخوارزمية.
-          </p>
-
-          <h4>موقع الحوسبة الكمومية اليوم</h4>
-
-          <p>
-            الأجهزة الحالية تتأثر بالضوضاء والأخطاء وفقدان الترابط،
-            لذلك ما زالت الخوارزميات العملية محدودة مقارنة بما
-            تصفه النماذج النظرية. ويُستخدم النموذج الهجين في كثير
-            من التطبيقات، حيث يتعاون المعالج الكلاسيكي مع المعالج الكمومي.
-          </p>
-
-          <h4>التعقيد: P وNP وBQP</h4>
-
-          <div class="table-scroll">
-          <table class="mini-table">
             <thead>
               <tr>
-                <th>الفئة</th>
-                <th>الفكرة المختصرة</th>
+                <th>النتيجة</th>
+                <th>الاحتمال</th>
               </tr>
             </thead>
+
             <tbody>
+
               <tr>
-                <td><code>P</code></td>
-                <td>مسائل يمكن حلها بكفاءة بخوارزميات كلاسيكية حتمية.</td>
+                <td>|0⟩</td>
+                <td>|α|²</td>
               </tr>
+
               <tr>
-                <td><code>NP</code></td>
-                <td>مسائل يمكن التحقق من صحة حلها بكفاءة.</td>
+                <td>|1⟩</td>
+                <td>|β|²</td>
               </tr>
-              <tr>
-                <td><code>BQP</code></td>
-                <td>مسائل يمكن حلها بكفاءة بواسطة حاسوب كمومي مع احتمال خطأ محدود.</td>
-              </tr>
+
             </tbody>
-          </table>
+
           </div>
 
+
+          <h4>Bra و Ket</h4>
+
+          <p>
+            نستخدم ترميز Dirac لتمثيل الحالات.
+          </p>
+
+
+          <div class="code-box math">
+Ket:
+
+|ψ⟩
+          </div>
+
+
+          <div class="code-box math">
+Bra:
+
+⟨ψ|
+          </div>
+
+
+          <p>
+            الـ Bra هو المرافق المنقول للـ Ket.
+          </p>
+
+
           <div class="callout gold">
-            <strong>ملاحظة مهمة:</strong>
-            لا يصح وصف BQP ببساطة بأنها "بين P وNP"؛ العلاقات الدقيقة
-            بين فئات التعقيد الكمومية والكلاسيكية موضوع رياضي أعمق.
+
+            <strong>الانتقال المهم:</strong>
+
+            في QBronze كنت تستخدم الحالة.
+            في QSilver ستتعامل مع بنيتها الرياضية.
+
           </div>
 
         </div>
+
       </details>
 
 
-      <!-- ===============================================
-           DAY 2
-      ================================================ -->
 
-      <details class="lesson" data-lesson="qsilver-02">
+      <!-- =================================================
+           03
+      ================================================== -->
+
+      <details class="lesson">
 
         <summary>
-          <span class="lesson-check" data-check></span>
-          <span class="lesson-index">02</span>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">03</span>
+
           <span class="lesson-title">
-            كرة بلوخ وتحويل فورييه الكمومي (QFT) — تعقيده O(n^2) بوابات في الدائرة القياسية، ويُستخدم كعنصر فرعي في QPE وشور: من الهندسة إلى QFT
+            المؤثرات والبوابات بالأعداد المركبة
           </span>
+
           <span class="lesson-caret">⌄</span>
+
         </summary>
 
         <div class="lesson-body">
 
-          <div class="callout">
-            <strong>هدف الملخص:</strong>
-            ربط الطور بتمثيل الكيوبت على كرة بلوخ، ثم فهم الفكرة
-            الأساسية لـ DFT وQFT.
-          </div>
-
-          <h4>كرة بلوخ — Bloch Sphere</h4>
+          <h4>المؤثر الكمي</h4>
 
           <p>
-            يمكن تمثيل أي حالة نقية لكيوبت واحد على كرة بلوخ:
+            يمثل المؤثر الكمي تحولًا يحدث للحالة الكمية.
           </p>
 
+
           <div class="code-box math">
-|ψ⟩ = cos(θ/2)|0⟩ + e^(iφ) sin(θ/2)|1⟩  (مع تجاهل الطور العالمي)
+|ψ'⟩ = U|ψ⟩
           </div>
+
+
+          <p>
+            حيث
+            <code>U</code>
+            مصفوفة تمثل العملية.
+          </p>
+
+
+          <h4>المصفوفة الوحدوية</h4>
+
+          <div class="code-box math">
+U†U = I
+          </div>
+
+
+          <p>
+            الوحدوية تضمن المحافظة على تطبيع الحالة.
+          </p>
+
+
+          <h4>مثال: بوابة X</h4>
+
+          <div class="code-box math">
+X =
+
+[ 0  1 ]
+[ 1  0 ]
+          </div>
+
+
+          <h4>بوابة Hadamard</h4>
+
+          <div class="code-box math">
+H = 1/√2
+
+[  1   1 ]
+[  1  -1 ]
+          </div>
+
+
+          <h4>تركيب العمليات</h4>
+
+          <p>
+            إذا طبقنا عمليتين متتاليتين:
+          </p>
+
+
+          <div class="code-box math">
+|ψ'⟩ = U₂U₁|ψ⟩
+          </div>
+
+
+          <div class="callout">
+
+            <strong>ملاحظة:</strong>
+
+            ترتيب المصفوفات مهم.
+            بشكل عام:
+            <code>U₂U₁ ≠ U₁U₂</code>.
+
+          </div>
+
+
+          <h4>الجذر التربيعي للبوابة</h4>
+
+          <p>
+            يمكن تعريف عمليات مثل:
+          </p>
+
+
+          <div class="code-box math">
+√X · √X = X
+          </div>
+
+
+          <p>
+            وهذا مثال على أن فضاء العمليات الكمية
+            أوسع من البوابات الأساسية التي عرفناها سابقًا.
+          </p>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           04
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">04</span>
+
+          <span class="lesson-title">
+            الطور العالمي والطور النسبي
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>الطور العالمي</h4>
+
+          <p>
+            لنفترض أن لدينا الحالة:
+          </p>
+
+
+          <div class="code-box math">
+|ψ⟩
+          </div>
+
+
+          <p>
+            إذا ضربناها في:
+          </p>
+
+
+          <div class="code-box math">
+e^(iθ)
+          </div>
+
+
+          <p>
+            تصبح:
+          </p>
+
+
+          <div class="code-box math">
+e^(iθ)|ψ⟩
+          </div>
+
+
+          <p>
+            هذا يسمى طورًا عالميًا.
+          </p>
+
+
+          <div class="callout success">
+
+            <strong>خاصية مهمة:</strong>
+
+            الطور العالمي لا يغير احتمالات القياس.
+
+          </div>
+
+
+          <h4>الطور النسبي</h4>
+
+          <p>
+            الآن قارن بين:
+          </p>
+
+
+          <div class="code-box math">
+(|0⟩ + |1⟩) / √2
+          </div>
+
+
+          <p>
+            و:
+          </p>
+
+
+          <div class="code-box math">
+(|0⟩ - |1⟩) / √2
+          </div>
+
+
+          <p>
+            الفرق هنا ليس طورًا عالميًا.
+            إنه فرق في الطور النسبي بين مركبات الحالة.
+          </p>
+
+
+          <h4>لماذا الطور مهم؟</h4>
 
           <ul>
-            <li><code>θ</code>: تحدد الموقع بالنسبة لمحور Z.</li>
-            <li><code>φ</code>: تمثل الطور النسبي حول محور Z.</li>
+
+            <li>التداخل الكمي.</li>
+
+            <li>العمليات الدورانية.</li>
+
+            <li>QFT.</li>
+
+            <li>Quantum Phase Estimation.</li>
+
+            <li>الخوارزميات الكمية المتقدمة.</li>
+
           </ul>
 
+
+          <div class="callout gold">
+
+            <strong>صلة بـ QBronze:</strong>
+
+            تعرفت سابقًا على Phase Kickback.
+            الآن ندرس اللغة الرياضية التي تفسر
+            لماذا يكون الطور موردًا مهمًا في الحساب الكمي.
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           05
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">05</span>
+
+          <span class="lesson-title">
+            تحويل الحالات وتمثيلها
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>الحالة تعتمد على أساس التمثيل</h4>
+
           <p>
-            تستخدم البوابات الدورانية مثل <code>RX</code> و<code>RY</code>
-            و<code>RZ</code> لتغيير اتجاه الحالة على الكرة.
+            يمكن تمثيل الحالة الكمية باستخدام أكثر من أساس.
+            تغيير الأساس لا يعني بالضرورة تغيير الحالة الفيزيائية.
           </p>
 
-          <h4>الأنظمة متعددة الكيوبتات</h4>
 
-          <p>
-            عند دمج كيوبتين أو أكثر نستخدم الضرب التنسوري:
-          </p>
+          <h4>الأساس الحسابي</h4>
 
           <div class="code-box math">
-|ψ⟩ = |ψ₁⟩ ⊗ |ψ₂⟩
+|0⟩
 
+|1⟩
+          </div>
+
+
+          <h4>أساس Hadamard</h4>
+
+          <div class="code-box math">
+|+⟩ = (|0⟩ + |1⟩)/√2
+          </div>
+
+
+          <div class="code-box math">
+|-⟩ = (|0⟩ - |1⟩)/√2
+          </div>
+
+
+          <h4>التحويل بين الحالات</h4>
+
+          <p>
+            يمكن للبوابات الوحدوية تحويل الحالة
+            من تمثيل إلى آخر.
+          </p>
+
+
+          <div class="code-box math">
+|ψ'⟩ = U|ψ⟩
+          </div>
+
+
+          <h4>التصور</h4>
+
+          <p>
+            يمكن تمثيل الحالة باستخدام:
+          </p>
+
+          <ul>
+
+            <li>متجه مركب.</li>
+
+            <li>مستوى مركب.</li>
+
+            <li>دائرة الوحدة.</li>
+
+            <li>كرة بلوخ.</li>
+
+          </ul>
+
+
+          <div class="callout">
+
+            <strong>الهدف:</strong>
+
+            قبل الانتقال إلى كرة بلوخ،
+            نحتاج إلى فهم أن نفس الحالة يمكن وصفها
+            رياضيًا وهندسيًا بطرق مختلفة.
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           06
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">06</span>
+
+          <span class="lesson-title">
+            كرة بلوخ — التمثيل الهندسي للكيوبت
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>تمثيل عام للكيوبت</h4>
+
+          <div class="code-box math">
+|ψ⟩ =
+
+cos(θ/2)|0⟩
+
++
+
+e^(iφ) sin(θ/2)|1⟩
+          </div>
+
+
+          <p>
+            حيث:
+          </p>
+
+          <ul>
+
+            <li><code>θ</code> تحدد الموقع الرأسي.</li>
+
+            <li><code>φ</code> تمثل الزاوية المرتبطة بالطور النسبي.</li>
+
+          </ul>
+
+
+          <h4>أهم النقاط</h4>
+
+          <div class="mini-table">
+
+            <thead>
+              <tr>
+                <th>الحالة</th>
+                <th>الموقع</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>|0⟩</td>
+                <td>القطب العلوي</td>
+              </tr>
+
+              <tr>
+                <td>|1⟩</td>
+                <td>القطب السفلي</td>
+              </tr>
+
+              <tr>
+                <td>|+⟩</td>
+                <td>اتجاه +X</td>
+              </tr>
+
+              <tr>
+                <td>|-⟩</td>
+                <td>اتجاه −X</td>
+              </tr>
+
+            </tbody>
+
+          </div>
+
+
+          <h4>ماذا تمثل الكرة؟</h4>
+
+          <p>
+            تمثل كرة بلوخ الحالات النقية لكيوبت واحد.
+          </p>
+
+
+          <div class="callout warn">
+
+            <strong>تنبيه:</strong>
+
+            لا يمكن استخدام كرة بلوخ بنفس البساطة
+            لتمثيل نظام عام من عدة كيوبتات.
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           07
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">07</span>
+
+          <span class="lesson-title">
+            العمليات على كرة بلوخ
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>فكرة الدرس</h4>
+
+          <p>
+            في QBronze تعلمت ماذا تفعل البوابات.
+            هنا ندرس كيف تتحرك الحالة هندسيًا.
+          </p>
+
+
+          <h4>دورانات المحاور</h4>
+
+          <ul>
+
+            <li><code>RX(θ)</code></li>
+
+            <li><code>RY(θ)</code></li>
+
+            <li><code>RZ(θ)</code></li>
+
+          </ul>
+
+
+          <h4>بوابة RX</h4>
+
+          <div class="code-box math">
+RX(θ) =
+e^(-iθX/2)
+          </div>
+
+
+          <h4>بوابة RY</h4>
+
+          <div class="code-box math">
+RY(θ) =
+e^(-iθY/2)
+          </div>
+
+
+          <h4>بوابة RZ</h4>
+
+          <div class="code-box math">
+RZ(θ) =
+e^(-iθZ/2)
+          </div>
+
+
+          <p>
+            هذه العمليات تمثل دورانات حول المحاور
+            X وY وZ.
+          </p>
+
+
+          <h4>في Qiskit</h4>
+
+          <div class="code-box">
+from qiskit import QuantumCircuit
+
+qc = QuantumCircuit(1)
+
+qc.rx(1.0, 0)
+qc.ry(1.0, 0)
+qc.rz(1.0, 0)
+
+qc.draw()
+          </div>
+
+
+          <div class="callout gold">
+
+            <strong>المعنى الأعمق:</strong>
+
+            البوابات ليست مجرد مربعات في دائرة.
+            يمكن النظر إليها على أنها تحولات ودورانات
+            في فضاء الحالة.
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           08
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">08</span>
+
+          <span class="lesson-title">
+            العمليات متعددة الكيوبت بالأعداد المركبة
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>من كيوبت إلى نظام متعدد الكيوبت</h4>
+
+          <p>
+            عدد الحالات الأساسية لنظام يحتوي على
+            <code>n</code>
+            كيوبتات هو:
+          </p>
+
+
+          <div class="code-box math">
+2ⁿ
+          </div>
+
+
+          <p>
+            لذلك يحتوي متجه الحالة العام على
+            <code>2ⁿ</code>
+            سعة مركبة.
+          </p>
+
+
+          <h4>مثال: كيوبتان</h4>
+
+          <div class="code-box math">
+|ψ⟩ =
+
+α₀₀|00⟩
+
++
+
+α₀₁|01⟩
+
++
+
+α₁₀|10⟩
+
++
+
+α₁₁|11⟩
+          </div>
+
+
+          <h4>شرط التطبيع</h4>
+
+          <div class="code-box math">
+|α₀₀|²
+
++
+
+|α₀₁|²
+
++
+
+|α₁₀|²
+
++
+
+|α₁₁|²
+
+= 1
+          </div>
+
+
+          <h4>المنتج التنسوري</h4>
+
+          <p>
+            نستخدم Tensor Product لبناء فضاء الحالات
+            للأنظمة متعددة الكيوبت.
+          </p>
+
+
+          <div class="code-box math">
 |0⟩ ⊗ |1⟩ = |01⟩
           </div>
 
-          <p>
-            يزداد بُعد فضاء الحالة إلى <code>2ⁿ</code> لعدد
-            <code>n</code> من الكيوبتات.
-          </p>
 
-          <h4>DFT — تحويل فورييه المتقطع</h4>
+          <h4>العمليات متعددة الكيوبت</h4>
 
           <p>
-            يحول DFT التمثيل من المجال الأصلي إلى تمثيل يعتمد على
-            مكونات التردد. ومن الصيغ الشائعة:
+            تصبح العمليات مصفوفات أكبر.
           </p>
 
-          <div class="code-box math">
-Xₖ = (1/√N) Σₙ xₙ e^(-2πikn/N)
+
+          <div class="callout">
+
+            <strong>الفكرة المهمة:</strong>
+
+            هنا لا نعيد شرح CNOT والتشابك،
+            بل ندرس التمثيل الرياضي للعمليات
+            في فضاء متعدد الأبعاد.
+
           </div>
-
-          <div class="callout gold">
-            <strong>تنبيه:</strong>
-            توجد اتفاقيات مختلفة لتطبيع DFT وإشارة الأس في المراجع.
-            المهم معرفة الاتفاقية المستخدمة في الحساب أو الكتاب.
-          </div>
-
-          <h4>QFT — تحويل فورييه الكمومي (QFT) — تعقيده O(n^2) بوابات في الدائرة القياسية، ويُستخدم كعنصر فرعي في QPE وشور</h4>
-
-          <p>
-            يعمل QFT على سعات الحالة الكمومية. إذا كان
-            <code>N = 2ⁿ</code>:
-          </p>
-
-          <div class="code-box math">
-QFT|x⟩ =
-(1/√N) Σᵧ e^(2πixy/N)|y⟩
-          </div>
-
-          <p>
-            الفكرة المهمة للمراجعة: QFT يحول البنية المرتبطة بالطور
-            والدورية إلى تمثيل يمكن استخدامه مع القياس لاستخراج معلومات
-            مفيدة في خوارزميات مثل QPE وشور.
-          </p>
-
-          <h4>فكرة دائرة QFT</h4>
-
-          <div class="code-box math">
-Hadamard
-   ↓
-Controlled-Phase
-   ↓
-Hadamard
-   ↓
-Controlled-Phase
-   ↓
-Swap
-          </div>
-
-          <p>
-            الدائرة الفعلية تعتمد على عدد الكيوبتات، ويُستخدم
-            <strong>Inverse QFT</strong> في الاتجاه العكسي عند الحاجة
-            إلى استخراج معلومات الطور، كما في QPE.
-          </p>
 
         </div>
+
       </details>
 
 
-      <!-- ===============================================
-           DAY 3
-      ================================================ -->
 
-      <details class="lesson" data-lesson="qsilver-03">
+      <!-- =================================================
+           09
+      ================================================== -->
+
+      <details class="lesson">
 
         <summary>
-          <span class="lesson-check" data-check></span>
-          <span class="lesson-index">03</span>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">09</span>
+
           <span class="lesson-title">
-            تقدير الطور الكمومي (QPE) — يقدّر الطور φ لمؤثر وحدوي U حيث U|ψ⟩=e^(2πiφ)|ψ⟩، ومنه يمكن استنتاج القيمة الذاتية λ=e^(2πiφ) الكمومي (QPE) وإيجاد المرتبة
+            مقدمة إلى Cirq
           </span>
+
           <span class="lesson-caret">⌄</span>
+
         </summary>
 
         <div class="lesson-body">
 
-          <div class="callout">
-            <strong>هدف الملخص:</strong>
-            فهم العلاقة بين القيم الذاتية والطور، ثم معرفة كيف تستخدم
-            QPE لاستخراج الطور، ولماذا يرتبط ذلك بمشكلة Order Finding.
+          <h4>بيئة جديدة للدوائر الكمية</h4>
+
+          <p>
+            حتى الآن استخدمنا Qiskit.
+            في هذا الجزء نتعرف على Cirq
+            كبيئة أخرى لبناء ومحاكاة الدوائر الكمية.
+          </p>
+
+
+          <h4>إنشاء كيوبت</h4>
+
+          <div class="code-box">
+import cirq
+
+q = cirq.LineQubit(0)
           </div>
 
-          <h4>القيمة الذاتية والطور</h4>
 
-          <p>
-            إذا كان <code>|ψ⟩</code> متجهًا ذاتيًا لمؤثر وحدوي <code>U</code>:
-          </p>
+          <h4>إنشاء دائرة</h4>
 
-          <div class="code-box math">
-U|ψ⟩ = e^(2πiφ)|ψ⟩
+          <div class="code-box">
+circuit = cirq.Circuit()
+
+circuit.append(cirq.H(q))
+
+print(circuit)
           </div>
 
-          <p>
-            هنا <code>φ</code> هو <strong>Eigenphase</strong> الذي تحاول
-            خوارزمية QPE تقديره.
-          </p>
 
-          <h4>QPE — Quantum Phase Estimation</h4>
+          <h4>بوابتان وقياس</h4>
 
-          <p>
-            الفكرة المختصرة:
-          </p>
+          <div class="code-box">
+q0, q1 = cirq.LineQubit.range(2)
 
-          <div class="code-box math">
-Control Register
-      ↓
-Superposition
-      ↓
-Controlled-U, U², U⁴, ...
-      ↓
-Phase Information
-      ↓
-Inverse QFT
-      ↓
-Measurement
+circuit = cirq.Circuit(
+
+    cirq.H(q0),
+
+    cirq.CNOT(q0, q1),
+
+    cirq.measure(q0, q1)
+
+)
           </div>
 
-          <p>
-            الهدف هو تحويل معلومات الطور الموجودة في السعات إلى قيمة
-            ثنائية تقريبية يمكن الحصول عليها من القياس.
-          </p>
-
-          <h4>مثال مبسط</h4>
-
-          <p>
-            إذا كان الطور له تمثيل ثنائي منتهٍ مثل:
-          </p>
-
-          <div class="code-box math">
-φ = 0.11₂ = 3/4
-          </div>
-
-          <p>
-            فإن سجل التحكم يمكنه، في الحالة المثالية المناسبة، تمثيل
-            القيمة <code>11</code> بعد تطبيق Inverse QFT والقياس.
-          </p>
 
           <div class="callout gold">
-            <strong>الفكرة:</strong>
-            QPE لا "تقيس الطور مباشرة"، بل تستخدم التداخل وInverse QFT
-            لتحويل معلومات الطور إلى نمط قياس قابل للقراءة.
+
+            <strong>الهدف ليس إعادة تعلم البوابات.</strong>
+
+            أنت تعرف بالفعل H وCNOT.
+            الجديد هنا هو التعرف على بيئة Cirq
+            وطريقة تمثيل الدوائر فيها.
+
           </div>
 
-          <h4>Order Finding</h4>
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           10
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">10</span>
+
+          <span class="lesson-title">
+            تحويل فورييه المتقطع — DFT
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>قبل Quantum Fourier Transform</h4>
 
           <p>
-            المطلوب إيجاد أصغر عدد صحيح موجب <code>r</code> يحقق:
+            لفهم QFT نحتاج أولًا إلى فهم
+            Discrete Fourier Transform.
           </p>
+
+
+          <h4>الفكرة</h4>
+
+          <p>
+            يمكن لتحويل فورييه تحليل البيانات الدورية
+            إلى مكونات مرتبطة بالتردد.
+          </p>
+
+
+          <h4>الصيغة</h4>
+
+          <div class="code-box math">
+Xₖ =
+
+Σ
+
+xₙ e^(-2πikn/N)
+          </div>
+
+
+          <p>
+            حيث:
+
+          </p>
+
+          <ul>
+
+            <li><code>xₙ</code> قيم الإدخال.</li>
+
+            <li><code>Xₖ</code> قيم التحويل.</li>
+
+            <li><code>N</code> حجم البيانات.</li>
+
+          </ul>
+
+
+          <h4>الجذر N للوحدة</h4>
+
+          <div class="code-box math">
+ω = e^(2πi/N)
+          </div>
+
+
+          <div class="callout">
+
+            <strong>الربط بـ QSilver:</strong>
+
+            الأعداد المركبة والطور اللذان درسناهما سابقًا
+            أصبحا الآن جزءًا من تحويل فورييه.
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           11
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">11</span>
+
+          <span class="lesson-title">
+            Quantum Fourier Transform — QFT
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>ما هو QFT؟</h4>
+
+          <p>
+            Quantum Fourier Transform هو النظير الكمي
+            لتحويل فورييه المتقطع.
+          </p>
+
+
+          <h4>الفكرة الأساسية</h4>
+
+          <p>
+            يعمل QFT على الحالة الكمية
+            ويحول السعات بطريقة تعتمد على
+            التداخل والطور.
+          </p>
+
+
+          <h4>مكونات دائرة QFT</h4>
+
+          <ul>
+
+            <li>Hadamard Gates.</li>
+
+            <li>Controlled Phase Gates.</li>
+
+            <li>Swap Gates.</li>
+
+          </ul>
+
+
+          <h4>بوابات الطور المتحكم بها</h4>
+
+          <div class="code-box math">
+Rₖ =
+
+[ 1   0 ]
+
+[ 0   e^(2πi/2ᵏ) ]
+          </div>
+
+
+          <h4>البنية العامة</h4>
+
+          <div class="flow-strip">
+
+            <span class="flow-node">Input</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node hi">H</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Controlled-R</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">...</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">SWAP</span>
+
+          </div>
+
+
+          <h4>Inverse QFT</h4>
+
+          <p>
+            في الخوارزميات الكمية نحتاج كثيرًا
+            إلى العملية العكسية:
+          </p>
+
+
+          <div class="code-box math">
+QFT⁻¹
+          </div>
+
+
+          <p>
+            وهي عنصر أساسي في Quantum Phase Estimation.
+          </p>
+
+
+          <div class="callout success">
+
+            <strong>هذه نقطة تحول في QSilver:</strong>
+
+            بعد دراسة الأساس الرياضي،
+            بدأنا الآن باستخدامه لبناء خوارزميات كمية كاملة.
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           12
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">12</span>
+
+          <span class="lesson-title">
+            Quantum Phase Estimation — QPE
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>هدف الخوارزمية</h4>
+
+          <p>
+            تهدف QPE إلى تقدير الطور المرتبط
+            بقيمة ذاتية لمؤثر وحدوي.
+          </p>
+
+
+          <h4>العلاقة الأساسية</h4>
+
+          <div class="code-box math">
+U|ψ⟩ =
+
+e^(2πiφ)|ψ⟩
+          </div>
+
+
+          <p>
+            المطلوب هو تقدير:
+          </p>
+
+
+          <div class="code-box math">
+φ
+          </div>
+
+
+          <h4>بنية QPE</h4>
+
+          <div class="step-flow">
+
+            <li>إنشاء سجل للعد.</li>
+
+            <li>تطبيق Hadamard على كيوبتات العد.</li>
+
+            <li>تطبيق Controlled-U.</li>
+
+            <li>تطبيق Controlled-U².</li>
+
+            <li>تطبيق Controlled-U⁴.</li>
+
+            <li>الاستمرار بقوى متزايدة.</li>
+
+            <li>تطبيق Inverse QFT.</li>
+
+            <li>القياس.</li>
+
+          </div>
+
+
+          <h4>مخطط الخوارزمية</h4>
+
+          <div class="flow-strip">
+
+            <span class="flow-node">Hadamard</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Controlled-U</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Phase</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node hi">Inverse QFT</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Measurement</span>
+
+          </div>
+
+
+          <div class="callout gold">
+
+            <strong>صلة بالمراحل السابقة:</strong>
+
+            هنا نستخدم Phase Kickback الذي تعرفت عليه سابقًا،
+            لكن هذه المرة كجزء من خوارزمية كاملة
+            لاستخراج معلومات كمية قابلة للقياس.
+
+          </div>
+
+        </div>
+
+      </details>
+
+
+
+      <!-- =================================================
+           13
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">13</span>
+
+          <span class="lesson-title">
+            Order Finding Algorithm — إيجاد المرتبة
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>ما هي المرتبة؟</h4>
+
+          <p>
+            نريد إيجاد أصغر عدد صحيح موجب
+            <code>r</code>
+            يحقق:
+          </p>
+
 
           <div class="code-box math">
 aʳ ≡ 1 (mod N)
           </div>
 
+
           <p>
-            ويشترط عادةً في اختيار <code>a</code> أن:
+            يسمى هذا العدد:
           </p>
 
+
           <div class="code-box math">
-gcd(a, N) = 1
+Order
           </div>
 
-          <h4>مثال: N = 15</h4>
+
+          <h4>مثال</h4>
+
+          <p>
+            لنفترض:
+          </p>
+
 
           <div class="code-box math">
+N = 15
+
 a = 2
-
-2¹ mod 15 = 2
-2² mod 15 = 4
-2³ mod 15 = 8
-2⁴ mod 15 = 1
-
-إذن r = 4
           </div>
 
+
           <p>
-            هذه الدورية هي المعلومة التي تستفيد منها خوارزمية شور
-            للوصول إلى عوامل العدد.
+            نحسب:
           </p>
+
+
+          <div class="code-box math">
+2¹ mod 15 = 2
+
+2² mod 15 = 4
+
+2³ mod 15 = 8
+
+2⁴ mod 15 = 1
+          </div>
+
+
+          <p>
+            إذًا:
+          </p>
+
+
+          <div class="code-box math">
+r = 4
+          </div>
+
+
+          <h4>لماذا نحتاج QPE؟</h4>
+
+          <p>
+            يمكن تحويل مشكلة إيجاد الدورية
+            إلى مشكلة يمكن للخوارزمية الكمية
+            التعامل معها باستخدام الطور وQFT.
+          </p>
+
+
+          <div class="callout">
+
+            <strong>الربط:</strong>
+
+            Order Finding هو الجسر بين
+            Quantum Phase Estimation
+            وخوارزمية Shor.
+
+          </div>
 
         </div>
+
       </details>
 
 
-      <!-- ===============================================
-           DAY 4
-      ================================================ -->
 
-      <details class="lesson" data-lesson="qsilver-04">
+      <!-- =================================================
+           14
+      ================================================== -->
+
+      <details class="lesson">
 
         <summary>
-          <span class="lesson-check" data-check></span>
-          <span class="lesson-index">04</span>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">14</span>
+
           <span class="lesson-title">
-            خوارزمية شور: من إيجاد المرتبة إلى تحليل الأعداد
+            خوارزمية Shor
           </span>
+
           <span class="lesson-caret">⌄</span>
+
         </summary>
 
         <div class="lesson-body">
 
-          <div class="callout">
-            <strong>هدف الملخص:</strong>
-            جمع QFT وQPE وOrder Finding داخل الصورة العامة لخوارزمية شور،
-            مع معرفة الحالات التي تحتاج إلى إعادة المحاولة.
-          </div>
-
-          <h4>ما المشكلة التي تحلها شور؟</h4>
+          <h4>الهدف</h4>
 
           <p>
-            خوارزمية شور هي خوارزمية كمومية لتحليل عدد صحيح
-            إلى عوامله الأولية بكفاءة نظرية، وتعتمد على إيجاد دورية
-            دالة الأسّ المتكرر:
+            تستخدم خوارزمية Shor الجزء الكمي
+            لإيجاد الدورية أو المرتبة،
+            ثم تستخدم الحسابات الكلاسيكية
+            لاستخراج عوامل العدد.
           </p>
 
-          <div class="code-box math">
-f(x) = aˣ mod N
+
+          <h4>الصورة الكبيرة</h4>
+
+          <div class="flow-strip">
+
+            <span class="flow-node">Choose N</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Choose a</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node hi">Order Finding</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Classical Processing</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Factors</span>
+
           </div>
 
-          <h4>المسار المختصر للخوارزمية</h4>
 
-          <ul class="step-flow">
-            <li>اختيار العدد <code>N</code> المراد تحليله.</li>
-            <li>اختيار <code>a</code> بحيث <code>1 &lt; a &lt; N</code>.</li>
-            <li>حساب <code>gcd(a,N)</code>.</li>
-            <li>إذا كان <code>gcd(a,N) ≠ 1</code> فقد حصلنا على عامل غير تافه مباشرة.</li>
-            <li>إيجاد المرتبة <code>r</code> باستخدام الجزء الكمومي.</li>
-            <li>إذا كان <code>r</code> فرديًا، نعيد المحاولة باختيار <code>a</code> آخر.</li>
-            <li>إذا كان <code>a^(r/2) ≡ -1 (mod N)</code>، قد لا نحصل على عامل مفيد ونعيد المحاولة.</li>
-            <li>استخدام GCD لاستخراج العوامل.</li>
-          </ul>
+          <h4>الخطوات</h4>
 
-          <h4>مثال تعليمي: تحليل 15</h4>
+          <div class="step-flow">
 
-          <div class="code-box math">
-N = 15
-a = 2
-r = 4
+            <li>اختيار العدد N المطلوب تحليله.</li>
 
-a^(r/2) = 2² = 4
+            <li>اختيار عدد a أصغر من N.</li>
 
-gcd(4 − 1, 15) = 3
-gcd(4 + 1, 15) = 5
+            <li>حساب gcd(a, N).</li>
 
-15 = 3 × 5
+            <li>إذا لم يكن gcd = 1، تم العثور على عامل.</li>
+
+            <li>إذا كان gcd = 1، نبحث عن المرتبة r.</li>
+
+            <li>يتم استخدام الجزء الكمي لإيجاد r.</li>
+
+            <li>استخدام نتائج الحساب الكلاسيكي لاستخراج العوامل.</li>
+
           </div>
 
-          <h4>أين يوجد الجزء الكمومي؟</h4>
 
-          <div class="code-box math">
-Modular Exponentiation
-        ↓
-Periodic Information
-        ↓
-Quantum Phase Estimation / QFT
-        ↓
-Measurement
-        ↓
-Classical Post-Processing
-        ↓
-Order r
-        ↓
-GCD
-        ↓
-Factors
-          </div>
+          <h4>بعد إيجاد r</h4>
 
           <p>
-            الجزء الكمومي يساعد على استخراج المعلومات الدورية،
-            بينما توجد خطوات كلاسيكية مهمة لمعالجة النتيجة واستخراج العوامل.
+            إذا كانت
+            <code>r</code>
+            مناسبة، نستخدم:
           </p>
 
-          <h4>ما الذي يجب أن تتذكره؟</h4>
+
+          <div class="code-box math">
+gcd(a^(r/2) - 1, N)
+          </div>
+
+
+          <p>
+            و:
+          </p>
+
+
+          <div class="code-box math">
+gcd(a^(r/2) + 1, N)
+          </div>
+
 
           <div class="callout success">
-            <strong>الخلاصة:</strong>
-            قوة هذه السلسلة من الخوارزميات لا تأتي من "وجود حالات كثيرة"
-            وحده، وإنما من التحكم في التراكب والطور والتداخل لاستخراج
-            بنية رياضية مفيدة من المشكلة.
-          </div>
 
-          <div class="code-box math">
-QFT
- ↓
-QPE
- ↓
-Order Finding
- ↓
-Shor
-          </div>
+            <strong>أهمية الخوارزمية:</strong>
 
-          <h4>مراجعة سريعة قبل الاختبار</h4>
+            Shor ليست مجرد خوارزمية منفصلة.
+            إنها تجمع تقريبًا جميع الأفكار الرئيسية
+            التي درستها في QSilver.
 
-          <ul>
-            <li>ما الفرق بين Global Phase وRelative Phase؟</li>
-            <li>ما الذي تمثله θ وφ في Bloch Sphere؟</li>
-            <li>لماذا نستخدم Inverse QFT في QPE؟</li>
-            <li>ما تعريف Order <code>r</code>؟</li>
-            <li>لماذا نحتاج <code>gcd(a,N)=1</code> في المسار المعتاد لشور؟</li>
-            <li>ماذا يحدث إذا كان <code>r</code> فرديًا؟</li>
-            <li>ما دور الجزء الكمومي وما دور المعالجة الكلاسيكية في شور؟</li>
-          </ul>
-
-          <div class="callout gold">
-            <strong>للتطبيق:</strong>
-            هذا الملخص يثبت المفاهيم الأساسية، أما بناء الدوائر وتنفيذ
-            QFT وQPE وشور باستخدام Qiskit فيحتاج الرجوع إلى الدروس العملية
-            والتمارين الأصلية.
           </div>
 
         </div>
+
       </details>
+
+
+
+      <!-- =================================================
+           15
+      ================================================== -->
+
+      <details class="lesson">
+
+        <summary>
+
+          <span class="lesson-check">✓</span>
+
+          <span class="lesson-index">15</span>
+
+          <span class="lesson-title">
+            Shor بالتفصيل — المشروع الختامي للمرحلة الفضية
+          </span>
+
+          <span class="lesson-caret">⌄</span>
+
+        </summary>
+
+        <div class="lesson-body">
+
+          <h4>الهدف النهائي</h4>
+
+          <p>
+            في هذا الدرس نجمع جميع أجزاء المرحلة
+            في رحلة واحدة لفهم خوارزمية Shor
+            خطوة بخطوة.
+          </p>
+
+
+          <h4>الخريطة الكاملة</h4>
+
+          <div class="flow-strip">
+
+            <span class="flow-node">Complex Numbers</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Quantum States</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Phase</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">QFT</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">QPE</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node">Order Finding</span>
+
+            <span class="flow-arrow">→</span>
+
+            <span class="flow-node hi">Shor</span>
+
+          </div>
+
+
+          <h4>مثال تدريبي: تحليل العدد 15</h4>
+
+          <p>
+            نختار:
+          </p>
+
+
+          <div class="code-box math">
+N = 15
+          </div>
+
+
+          <p>
+            ثم نختار عددًا:
+          </p>
+
+
+          <div class="code-box math">
+a < 15
+          </div>
+
+
+          <p>
+            بشرط أن:
+          </p>
+
+
+          <div class="code-box math">
+gcd(a,15) = 1
+          </div>
+
+
+          <p>
+            ثم نستخدم Order Finding لإيجاد:
+          </p>
+
+
+          <div class="code-box math">
+r
+          </div>
+
+
+          <p>
+            وبعدها نحسب:
+          </p>
+
+
+          <div class="code-box math">
+gcd(a^(r/2) - 1, 15)
+          </div>
+
+
+          <p>
+            و:
+          </p>
+
+
+          <div class="code-box math">
+gcd(a^(r/2) + 1, 15)
+          </div>
+
+
+          <h4>مشروع المرحلة</h4>
+
+          <p>
+            أنشئ تطبيقًا أو Notebook يحتوي على:
+          </p>
+
+
+          <ul>
+
+            <li>اختيار N وa.</li>
+
+            <li>التحقق من gcd.</li>
+
+            <li>محاكاة أو تنفيذ Order Finding.</li>
+
+            <li>تقدير المرتبة.</li>
+
+            <li>استخراج العوامل.</li>
+
+            <li>عرض النتائج.</li>
+
+          </ul>
+
+
+          <div class="callout success">
+
+            <strong>تهانينا!</strong>
+
+            عند الوصول إلى هذه النقطة تكون قد انتقلت
+            من دراسة الكيوبتات الأساسية
+            إلى فهم سلسلة خوارزمية متكاملة:
+
+            <br><br>
+
+            <strong>
+              الرياضيات المركبة
+              → الطور
+              → QFT
+              → QPE
+              → الدورية
+              → Shor
+            </strong>
+
+          </div>
+
+        </div>
+
+      </details>
+
 
     </div>
 
 
-    <!-- QSILVER SUMMARY -->
+    <!-- ==================== SUMMARY ==================== -->
+
     <div class="stage-summary reveal">
 
-      <h3>ماذا تتعلم في هذا القسم؟</h3>
+      <h3>ملخص مرحلة QSilver</h3>
 
       <div class="summary-grid">
 
-        <div class="summary-card">
-          <strong>01</strong>
-          <span>التداخل والطور</span>
-          <p>كيف يؤثر الطور والتداخل في احتمالات نتائج القياس.</p>
-        </div>
 
         <div class="summary-card">
-          <strong>02</strong>
-          <span>Bloch Sphere</span>
-          <p>تمثيل حالة كيوبت واحد وفهم θ وφ.</p>
+
+          <strong>01 → 05</strong>
+
+          <span>الأساس الرياضي المركب</span>
+
+          <p>
+            الأعداد المركبة، الحالات، المؤثرات،
+            الطور وتحويل التمثيلات.
+          </p>
+
         </div>
 
-        <div class="summary-card">
-          <strong>03</strong>
-          <span>QFT</span>
-          <p>تحويل فورييه الكمومي (QFT) — تعقيده O(n^2) بوابات في الدائرة القياسية، ويُستخدم كعنصر فرعي في QPE وشور وعلاقته بالبنية الدورية.</p>
-        </div>
 
         <div class="summary-card">
-          <strong>04</strong>
-          <span>QPE</span>
-          <p>تقدير الطور الكمومي (QPE) — يقدّر الطور φ لمؤثر وحدوي U حيث U|ψ⟩=e^(2πiφ)|ψ⟩، ومنه يمكن استنتاج القيمة الذاتية λ=e^(2πiφ) المرتبط بالقيمة الذاتية لمؤثر وحدوي.</p>
+
+          <strong>06 → 08</strong>
+
+          <span>الهندسة وفضاء الحالة</span>
+
+          <p>
+            كرة بلوخ، الدورانات،
+            والعمليات متعددة الكيوبت.
+          </p>
+
         </div>
 
-        <div class="summary-card">
-          <strong>05</strong>
-          <span>Order Finding</span>
-          <p>إيجاد أصغر r يحقق aʳ ≡ 1 (mod N).</p>
-        </div>
 
         <div class="summary-card">
-          <strong>06</strong>
-          <span>Shor's Algorithm</span>
-          <p>استخدام المعلومات الدورية للوصول إلى عوامل العدد.</p>
+
+          <strong>09 → 11</strong>
+
+          <span>تحويل فورييه</span>
+
+          <p>
+            Cirq، DFT،
+            ثم Quantum Fourier Transform.
+          </p>
+
         </div>
+
+
+        <div class="summary-card">
+
+          <strong>12</strong>
+
+          <span>تقدير الطور</span>
+
+          <p>
+            استخدام Controlled Operations
+            وInverse QFT لاستخراج الطور.
+          </p>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <strong>13</strong>
+
+          <span>إيجاد المرتبة</span>
+
+          <p>
+            تحويل مشكلة الدورية
+            إلى مورد يمكن استغلاله كميًا.
+          </p>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <strong>14 → 15</strong>
+
+          <span>Shor والمشروع الختامي</span>
+
+          <p>
+            جمع جميع مفاهيم المرحلة
+            داخل خوارزمية كمية متكاملة.
+          </p>
+
+        </div>
+
 
       </div>
 
     </div>
+
+
+    <!-- ==================== FINAL TRANSITION ==================== -->
+
+    <div class="stage-transition glass reveal">
+
+      <strong style="color:var(--amber)">
+        نهاية QSilver
+      </strong>
+
+      <br><br>
+
+      بعد إكمال هذه المرحلة ستكون قد انتقلت من
+      الدوائر الكمية الأساسية إلى دراسة البنية الرياضية
+      للحوسبة الكمية، ثم استخدام
+      <strong>QFT</strong>
+      و
+      <strong>QPE</strong>
+      و
+      <strong>Order Finding</strong>
+      لفهم خوارزمية
+      <strong>Shor</strong>.
+
+    </div>
+
 
   </div>
 </section>
