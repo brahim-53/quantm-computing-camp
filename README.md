@@ -174,7 +174,7 @@ p code,li code,td code,.lesson-body code{direction:ltr;unicode-bidi:isolate;disp
 .code-box{direction:ltr;unicode-bidi:isolate;text-align:left;position:relative;background:#060910;border:1px solid var(--border-soft);
   border-radius:10px;padding:14px 44px 14px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;font-size:13px;color:#c9e6ff;border-inline-start:3px solid var(--cyan-dim);max-width:100%}
 .code-box.math{border-inline-start-color:var(--purple-dim);color:#e4d7ff;font-family:var(--font-mono);padding-inline-end:16px;white-space:pre}
-.code-copy{position:absolute;top:8px;right:8px;font-family:var(--font-body);font-size:11px;color:var(--text-faint);
+.code-copy{position:absolute;top:8px;inset-inline-end:8px;font-family:var(--font-body);font-size:11px;color:var(--text-faint);
   background:var(--panel-2);border:1px solid var(--border);border-radius:6px;padding:4px 9px;transition:color .2s,border-color .2s;min-height:28px}
 .code-copy:hover{color:var(--cyan);border-color:var(--cyan)}
 .code-copy.copied{color:var(--green);border-color:var(--green)}
@@ -4755,6 +4755,44 @@ gcd(a^(r/2) + 1, 15)
         mobileMenu.querySelectorAll('a').forEach(function(a){ a.setAttribute('tabindex','-1'); });
       }
     });
+    if(mobileMenu){
+      mobileMenu.setAttribute('inert','');
+      mobileMenu.querySelectorAll('a').forEach(function(a){
+        a.setAttribute('tabindex','-1');
+      });
+    }
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')){
+        mobileMenu.classList.remove('open');
+        if(navToggle){
+          navToggle.classList.remove('open');
+          navToggle.setAttribute('aria-expanded','false');
+          navToggle.setAttribute('aria-label','فتح القائمة');
+          navToggle.focus();
+        }
+        mobileMenu.setAttribute('inert','');
+        mobileMenu.querySelectorAll('a').forEach(function(a){
+          a.setAttribute('tabindex','-1');
+        });
+      }
+    });
+
+    window.addEventListener('resize', function(){
+      if(window.innerWidth > 720 && mobileMenu){
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('inert','');
+        mobileMenu.querySelectorAll('a').forEach(function(a){
+          a.setAttribute('tabindex','-1');
+        });
+        if(navToggle){
+          navToggle.classList.remove('open');
+          navToggle.setAttribute('aria-expanded','false');
+          navToggle.setAttribute('aria-label','فتح القائمة');
+        }
+      }
+    });
+
     document.querySelectorAll('.mobile-menu a').forEach(function(a){
       a.addEventListener('click', function(){
         if(mobileMenu) mobileMenu.classList.remove('open');
